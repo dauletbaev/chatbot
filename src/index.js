@@ -10,6 +10,7 @@ const { getWeather, getWeatherByCoords } = require('./weather')
 const { GET, POST } = require('./wa')
 const { privacyPolicy, termsOfService } = require('./legal')
 const { weatherChatSystemMessage } = require('./util')
+const { deleteDataRequest, getDeletionStatus } = require('./deletion')
 
 const query = process.env.GEO_QUERY
 
@@ -17,6 +18,8 @@ app.get('/privacy-policy', privacyPolicy)
 app.get('/terms-of-service', termsOfService)
 app.get('/wa', GET)
 app.post('/wa', POST)
+app.post('/meta/delete', deleteDataRequest)
+app.get('/deletion', getDeletionStatus)
 
 async function main() {
   const geoData = await getWeather(query)

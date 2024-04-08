@@ -1,11 +1,17 @@
 require('dotenv').config()
-const http = require('http')
+const express = require('express')
+
+const app = express()
+app.use(express.json())
 
 const { MODELS, openAI } = require('./openAI')
 const { getWeather, getWeatherByCoords } = require('./weather')
-const { handler } = require('./wa')
+const { GET, POST } = require('./wa')
 
 const query = process.env.GEO_QUERY
+
+app.get('/wa', GET)
+app.post('/wa', POST)
 
 async function main() {
   const geoData = await getWeather(query)
@@ -30,6 +36,6 @@ async function main() {
 
 const port = process.env.PORT ?? 3000
 
-http.createServer(handler).listen(port, () => {
+app.listen(port, () => {
   console.log(`Server started at http://localhost:${port}`)
 })

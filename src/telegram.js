@@ -47,7 +47,7 @@ bot.command('wear', async (ctx) => {
   })
 
   await ctx.reply(chatCompletion.choices[0].message.content, {
-    parse_mode: 'MarkdownV2',
+    parse_mode: 'HTML',
   })
 })
 

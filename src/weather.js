@@ -27,5 +27,6 @@ exports.getWeatherByCoords = async (lat, lon) => {
     throw new Error('Network response was not ok')
   }
 
+  // raw JSON string
   return await response.text()
 }

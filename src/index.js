@@ -77,11 +77,15 @@ telegramBot.command('wear', async (ctx) => {
 const port = process.env.PORT ?? 3000
 
 app.listen(port, async () => {
+  const isWebhookSet = await telegramBot.api.getWebhookInfo()
+  if (isWebhookSet.url) {
+    await telegramBot.api.deleteWebhook()
+  }
   await telegramBot.api.setWebhook(
     'https://chatbot.bizler.group/telegram/webhook',
-    {
-      secret_token: process.env.TELEGRAM_SECRET,
-    }
+    // {
+    //   secret_token: process.env.TELEGRAM_SECRET,
+    // }
   )
 
   console.log(`Server started at http://localhost:${port}`)

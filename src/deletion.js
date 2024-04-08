@@ -1,5 +1,7 @@
 const crypto = require('crypto')
 
+const APP_SECRET = process.env.META_APP_SECRET
+
 exports.getDeletionStatus = (req, res) => {
   const userId = req.query.id
   const confirmationCode = req.query.confirmation_code

@@ -7,7 +7,6 @@ app.use(express.json())
 
 const openAI = require('./openAI')
 const telegramBot = require('./telegram')
-const { MODELS } = require('./openAI')
 const { getWeather, getWeatherByCoords } = require('./weather')
 const { GET, POST } = require('./wa')
 const { privacyPolicy, termsOfService } = require('./legal')
@@ -15,6 +14,12 @@ const { weatherChatSystemMessage } = require('./util')
 const { deleteDataRequest, getDeletionStatus } = require('./deletion')
 
 const query = process.env.GEO_QUERY
+
+MODELS = {
+  GPT3: 'gpt-3.5-turbo',
+  GPT4: 'gpt-4',
+  GPT4_TURBO: 'gpt-4-turbo-preview',
+}
 
 app.get('/privacy-policy', privacyPolicy)
 app.get('/terms-of-service', termsOfService)
@@ -54,13 +59,16 @@ telegramBot.command('weather', async (ctx) => {
   const lon = geoData.lon
   const weatherDataStr = await getWeatherByCoords(lat, lon)
 
-  await ctx.reply('```json' + weatherDataStr + '```')
+  await ctx.reply('```json\n' + weatherDataStr + '\n```', {
+    parse_mode: 'MarkdownV2',
+  })
 })
 
 telegramBot.command('wear', async (ctx) => {
   const geoData = await getWeather(query)
   const lat = geoData.lat
   const lon = geoData.lon
+  await ctx.replyWithChatAction('typing')
   const weatherDataStr = await getWeatherByCoords(lat, lon)
 
   const chatCompletion = await openAI.chat.completions.create({
@@ -71,7 +79,9 @@ telegramBot.command('wear', async (ctx) => {
     model: MODELS.GPT4_TURBO,
   })
 
-  await ctx.reply(chatCompletion.choices[0].message.content)
+  await ctx.reply(chatCompletion.choices[0].message.content, {
+    parse_mode: 'MarkdownV2',
+  })
 })
 
 const port = process.env.PORT ?? 3000
@@ -82,7 +92,7 @@ app.listen(port, async () => {
     await telegramBot.api.deleteWebhook()
   }
   await telegramBot.api.setWebhook(
-    'https://chatbot.bizler.group/telegram/webhook',
+    'https://chatbot.bizler.group/telegram/webhook'
     // {
     //   secret_token: process.env.TELEGRAM_SECRET,
     // }

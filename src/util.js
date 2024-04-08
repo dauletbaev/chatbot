@@ -1,4 +1,4 @@
-module.exports.prompt = (data) => {
+exports.prompt = (data) => {
   const text = `Given the following weather conditions:
       - Temperature: ${data.temperature}°C
       - Weather: ${data.weather}

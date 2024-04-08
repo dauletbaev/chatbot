@@ -4,12 +4,16 @@ const express = require('express')
 const app = express()
 app.use(express.json())
 
-const { MODELS, openAI } = require('./openAI')
+const openAI = require('./openAI')
+const { MODELS } = require('./openAI')
 const { getWeather, getWeatherByCoords } = require('./weather')
 const { GET, POST } = require('./wa')
+const { privacyPolicy, termsOfService } = require('./legal')
 
 const query = process.env.GEO_QUERY
 
+app.get('/privacy-policy', privacyPolicy)
+app.get('/terms-of-service', termsOfService)
 app.get('/wa', GET)
 app.post('/wa', POST)
 

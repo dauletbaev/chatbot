@@ -1,19 +1,17 @@
 {
   "name": "routine",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Abat",
+  "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "openai": "^4.33.0"
-  },
-  "devDependencies": {
-    "dotenv": "^16.4.5"
   }
 }

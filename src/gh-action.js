@@ -7,9 +7,9 @@ const { weatherChatSystemMessage } = require('./util')
 async function run() {
   const telegram_bot_token = core.getInput('telegram_bot_token')
   const telegram_admin_id = core.getInput('telegram_admin_id')
+  const openweather_api_key = core.getInput('openweather_api_key')
   const geo_query = core.getInput('geo_query')
   const openai_api_key = core.getInput('openai_api_key')
-  const openweather_api_key = core.getInput('openweather_api_key')
 
   const openai = new OpenAI({ apiKey: openai_api_key })
   const bot = new grammy.Bot(telegram_bot_token)

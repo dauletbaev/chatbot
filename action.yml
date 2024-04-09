@@ -7,6 +7,9 @@ inputs:
   telegram_admin_id:
     description: 'Telegram user id'
     required: true
+  openweather_api_key:
+    description: 'Openweather API key to get a weather data'
+    required: true
   geo_query:
     description: 'The query to get the location to lat, long'
     required: true

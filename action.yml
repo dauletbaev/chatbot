@@ -1,0 +1,21 @@
+name: 'Reporter'
+description: 'Reports to admin via Telegram'
+inputs:
+  telegram_bot_token:
+    description: 'Telegram bot token'
+    required: true
+  telegram_admin_id:
+    description: 'Telegram user id'
+    required: true
+  geo_query:
+    description: 'The query to get the location to lat, long'
+    required: true
+  openai_api_key:
+    description: 'OpenAI API key to generate a summary'
+    required: true
+outputs:
+  result:
+    description: 'Results whether the result succeed or not'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

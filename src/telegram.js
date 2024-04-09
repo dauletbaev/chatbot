@@ -39,16 +39,15 @@ bot.command('wear', async (ctx) => {
   const weatherDataStr = await getWeatherByCoords(lat, lon)
 
   const chatCompletion = await openAI.chat.completions.create({
+    model: MODELS.GPT4_TURBO,
     messages: [
       { role: 'system', content: weatherChatSystemMessage },
       { role: 'user', content: weatherDataStr },
     ],
-    model: MODELS.GPT4_TURBO,
   })
 
-  await ctx.reply(chatCompletion.choices[0].message.content, {
-    parse_mode: 'HTML',
-  })
+  const message = chatCompletion.choices[0].message.content
+  await ctx.reply(message)
 })
 
 bot.catch((err) => {

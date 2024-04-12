@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: dauletbaev/chatbot@gh-action-v1
+      - uses: dauletbaev/chatbot@gh-action-v2
         id: bot
         with:
           telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}

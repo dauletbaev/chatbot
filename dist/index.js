@@ -53076,9 +53076,9 @@ const { weatherChatSystemMessage } = __nccwpck_require__(6254)
 async function run() {
   const telegram_bot_token = core.getInput('telegram_bot_token')
   const telegram_admin_id = core.getInput('telegram_admin_id')
+  const openweather_api_key = core.getInput('openweather_api_key')
   const geo_query = core.getInput('geo_query')
   const openai_api_key = core.getInput('openai_api_key')
-  const openweather_api_key = core.getInput('openweather_api_key')
 
   const openai = new OpenAI({ apiKey: openai_api_key })
   const bot = new grammy.Bot(telegram_bot_token)
@@ -53092,7 +53092,7 @@ async function run() {
     )
 
     const chatCompletion = await openai.chat.completions.create({
-      model: 'gpt-4-turbo-preview',
+      model: 'gpt-4-turbo',
       messages: [
         { role: 'system', content: weatherChatSystemMessage },
         { role: 'user', content: weatherDataStr },
